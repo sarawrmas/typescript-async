@@ -52,6 +52,14 @@ async function renderHeroesAsync() {
   showFetching();
   showMessage();
   // TODO - getHeroesViaAsyncAwait
+  try {
+    const heroes = await getHeroesViaAsyncAwait();
+    showHeroes(heroes);
+  } catch (error) {
+    handleErrors(error);
+  } finally {
+    wrapUp();
+  }
 }
 
 /**
@@ -63,6 +71,14 @@ async function renderHeroesButThrow() {
   showFetching();
   showMessage();
   // TODO - getHeroesAndThrow
+  try {
+    const heroes = await getHeroesAndThrow();
+    showHeroes(heroes);
+  } catch (error) {
+    handleErrors(error);
+  } finally {
+    wrapUp();
+  }
 }
 
 async function render() {
@@ -74,5 +90,14 @@ async function render() {
    * Handle any errors
    * Always turn off the fetching indicator.
    */
-  // TODO
+  let hero: Hero;
+  try {
+    hero = await getHeroTreeAsync(searchEmailElement.value);
+    replaceHeroListComponent(hero);
+  } catch (error) {
+    console.error(error);
+    showMessage(error);
+  } finally {
+    wrapUp();
+  }
 }
